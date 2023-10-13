@@ -2,6 +2,7 @@ package com.example.airlinebooking.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.Set;
 public class Passenger {
     @Id
     private String passengerId;
-    private LocalDateTime dateOfBirth;
+    private String dateOfBirth;
     private String firstName;
     private String contactNumber;
 
@@ -100,11 +101,11 @@ public class Passenger {
         this.firstName = firstName;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

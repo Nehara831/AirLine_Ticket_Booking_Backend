@@ -3,7 +3,9 @@ package com.example.airlinebooking.models;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 @Entity
@@ -11,10 +13,10 @@ import java.util.Set;
 public class Flight {
     @Id
     private String flightId;
-    private LocalDateTime departureDate;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalDate;
-    private LocalDateTime arrivalTime;
+    private String departureDate;
+    private String departureTime;
+    private String arrivalDate;
+    private String arrivalTime;
     private String duration;
     private String airlineName;
     private BigDecimal price;
@@ -36,10 +38,43 @@ public class Flight {
     @JoinColumn(name="arrival_airport")
     private Airport arrival_airport;
 
+
+
     @ManyToOne
     @JoinColumn(name="departure_airport")
     private Airport departure_airport;
 
+    public Airport getDeparture_airport() {
+        return departure_airport;
+    }
+
+    public void setDeparture_airport(Airport departure_airport) {
+        this.departure_airport = departure_airport;
+    }
+
+    public Airport getArrival_airport() {
+        return arrival_airport;
+    }
+
+    public void setArrival_airport(Airport arrival_airport) {
+        this.arrival_airport = arrival_airport;
+    }
+
+    public Set<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(Set<Seat> seats) {
+        this.seats = seats;
+    }
+
+    public Set<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Set<Passenger> passengers) {
+        this.passengers = passengers;
+    }
     public String getFlightId() {
         return flightId;
     }
@@ -48,35 +83,35 @@ public class Flight {
         this.flightId = flightId;
     }
 
-    public LocalDateTime getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(LocalDateTime departureDate) {
+    public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
-    public LocalDateTime getArrivalDate() {
+    public String getArrivalDate() {
         return arrivalDate;
     }
 
-    public void setArrivalDate(LocalDateTime arrivalDate) {
+    public void setArrivalDate(String arrivalDate) {
         this.arrivalDate = arrivalDate;
     }
 
-    public LocalDateTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 

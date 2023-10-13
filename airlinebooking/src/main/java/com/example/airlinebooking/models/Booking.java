@@ -4,6 +4,7 @@ package com.example.airlinebooking.models;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class Booking {
 
     @Id
     private String bookingId;
-    private LocalDateTime bookingDate;
+    private String bookingDate;
     private BigDecimal totalPrice;
 
     @OneToOne(mappedBy ="booking")
@@ -35,11 +36,11 @@ private Set<Passenger> passengers=new HashSet<>();
         this.bookingId = bookingId;
     }
 
-    public LocalDateTime getBookingDate() {
+    public String getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(LocalDateTime bookingDate) {
+    public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
 
