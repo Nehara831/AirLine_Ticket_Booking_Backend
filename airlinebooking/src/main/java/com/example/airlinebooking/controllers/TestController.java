@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")
 public class TestController {
@@ -21,10 +21,7 @@ public class TestController {
     }
 
 
-    @GetMapping("/usr")
-    public String loginuser(){
-        return "Hi";
-    }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> loginuser(@RequestBody User user){

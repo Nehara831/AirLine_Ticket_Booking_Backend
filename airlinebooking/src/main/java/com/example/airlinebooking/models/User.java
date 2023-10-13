@@ -4,17 +4,19 @@ import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+
 @Entity
 @Table(name = "User")
 
 public class User {
 
     @Id
+
     private String userID;
     private String username;
     private String password;
-    private String email;
-    private String phone;
+
 
     @ManyToMany
     @JoinTable(
@@ -25,7 +27,7 @@ public class User {
     private Set<Passenger> passengers=new HashSet<>();
 
     @OneToOne
-    @JoinColumn(name = "booking_id", nullable = false)
+    @JoinColumn(name = "booking_id", nullable = true)
     private Booking booking;
 
 
@@ -53,22 +55,9 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public User() {
+        this.userID = UUID.randomUUID().toString();
     }
 }
