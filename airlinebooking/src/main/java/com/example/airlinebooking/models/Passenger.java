@@ -25,6 +25,19 @@ public class Passenger {
     private String email;
     private Integer noOfBags;
 
+    public Passenger(String dateOfBirth, String firstName, String contactNumber, String emergencyContactNumber, String suffix, String middleName, String lastName, Integer age, String email, Integer noOfBags) {
+        this.dateOfBirth = dateOfBirth;
+        this.firstName = firstName;
+        this.contactNumber = contactNumber;
+        this.emergencyContactNumber = emergencyContactNumber;
+        this.suffix = suffix;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.noOfBags = noOfBags;
+    }
+
     @ManyToMany(mappedBy = "passengers")
     private Set<User> users= new HashSet<>();
 

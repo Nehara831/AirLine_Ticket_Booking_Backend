@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class TestController {
 
     private UserRepository userRepository;
@@ -30,7 +30,7 @@ public class TestController {
 
 
 
-    @PostMapping("/users/login")
+    @PostMapping("/login")
     public ResponseEntity<?> loginuser(@RequestBody User user){
         Optional<User> foundUser = userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 

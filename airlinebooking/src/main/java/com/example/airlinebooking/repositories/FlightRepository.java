@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface FlightRepository extends JpaRepository<Flight, String> {
 
@@ -32,5 +31,9 @@ public interface FlightRepository extends JpaRepository<Flight, String> {
             @Param("departureAirport") Airport departureAirport,
             @Param("arrivalAirport") Airport arrivalAirport,
             @Param("arrivalDate") String arrivalDate);
+
+
+    Optional<Flight> findById(String id);
+
 }
 

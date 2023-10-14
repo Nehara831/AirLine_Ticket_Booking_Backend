@@ -18,6 +18,8 @@ public class User {
     private String password;
 
 
+
+
     @ManyToMany
     @JoinTable(
             name="UserPassenger",
@@ -59,5 +61,20 @@ public class User {
 
     public User() {
         this.userID = UUID.randomUUID().toString();
+    }
+    public Set<Passenger> getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(Set<Passenger> passengers) {
+        this.passengers = passengers;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 }
