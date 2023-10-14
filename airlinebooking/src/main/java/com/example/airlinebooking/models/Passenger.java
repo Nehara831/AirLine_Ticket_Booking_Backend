@@ -1,6 +1,7 @@
 package com.example.airlinebooking.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,13 +12,17 @@ import java.util.Set;
 @Entity
 @Table(name = "Passenger")
 public class Passenger {
+
     @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "passengerId", columnDefinition = "VARCHAR(36)")
     private String passengerId;
     private String dateOfBirth;
     private String firstName;
     private String contactNumber;
 
-    private String emergencyContactNumber;
+
     private String suffix;
     private String middleName;
     private String lastName;
@@ -25,17 +30,20 @@ public class Passenger {
     private String email;
     private Integer noOfBags;
 
-    public Passenger(String dateOfBirth, String firstName, String contactNumber, String emergencyContactNumber, String suffix, String middleName, String lastName, Integer age, String email, Integer noOfBags) {
+    public Passenger(String dateOfBirth, String firstName, String contactNumber,  String suffix, String middleName, String lastName, Integer age, String email, Integer noOfBags) {
         this.dateOfBirth = dateOfBirth;
         this.firstName = firstName;
         this.contactNumber = contactNumber;
-        this.emergencyContactNumber = emergencyContactNumber;
+
         this.suffix = suffix;
         this.middleName = middleName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
         this.noOfBags = noOfBags;
+    }
+
+    public Passenger() {
     }
 
     @ManyToMany(mappedBy = "passengers")
