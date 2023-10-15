@@ -18,10 +18,10 @@ public class Booking {
     private String bookingDate;
     private BigDecimal totalPrice;
 
-    @OneToOne(mappedBy ="booking")
+    @OneToOne(mappedBy ="booking",fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="PassengerBooking",
             joinColumns = @JoinColumn(name="bookingID"),

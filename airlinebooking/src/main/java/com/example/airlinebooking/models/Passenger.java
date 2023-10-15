@@ -46,16 +46,16 @@ public class Passenger {
     public Passenger() {
     }
 
-    @ManyToMany(mappedBy = "passengers")
+    @ManyToMany(mappedBy = "passengers",fetch = FetchType.LAZY)
     private Set<User> users= new HashSet<>();
 
-    @ManyToMany(mappedBy = "passengers")
+    @ManyToMany(mappedBy = "passengers",fetch = FetchType.LAZY)
     private Set<Flight> flights= new HashSet<>();
 
-    @ManyToMany(mappedBy = "passengers")
+    @ManyToMany(mappedBy = "passengers",fetch = FetchType.LAZY)
     private Set<Booking> bookings= new HashSet<>();
 
-    @ManyToMany(mappedBy = "passengers")
+    @ManyToMany(mappedBy = "passengers",fetch = FetchType.LAZY)
     private Set<Seat> seats= new HashSet<>();
 
     public Integer getNoOfBags() {

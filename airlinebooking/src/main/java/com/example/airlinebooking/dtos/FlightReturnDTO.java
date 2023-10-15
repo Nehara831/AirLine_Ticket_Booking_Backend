@@ -23,6 +23,7 @@ public class FlightReturnDTO {
 
 
     public void setArrivingFlights(List<Flight> arrivingFlights) {
+
         this.arrivingFlights = arrivingFlights;
     }
 }

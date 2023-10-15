@@ -1,18 +1,8 @@
-package com.example.airlinebooking.models;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+package com.example.airlinebooking.dtos;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
-@Entity
-@Table(name = "Flight")
-public class Flight {
-    @Id
+
+public class FlightDTO {
     private String flightId;
     private String departureDate;
     private String departureTime;
@@ -24,59 +14,12 @@ public class Flight {
     private String stops;
     private String flightType;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name="PassengerFlight",
-            joinColumns=@JoinColumn(name="FlightID"),
-            inverseJoinColumns = @JoinColumn(name="PassengerID")
-    )
-    private Set<Passenger> passengers= new HashSet<>();
-
-    @ManyToMany(mappedBy = "flights",fetch = FetchType.LAZY)
-    private Set<Seat> seats= new HashSet<>();
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="arrival_airport")
-    private Airport arrival_airport;
-
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="departure_airport")
-    private Airport departure_airport;
-
-    public Airport getDeparture_airport() {
-        return departure_airport;
+    public FlightDTO() {
+        // Default constructor
     }
 
-    public void setDeparture_airport(Airport departure_airport) {
-        this.departure_airport = departure_airport;
-    }
+    // Getters and setters for each field
 
-    public Airport getArrival_airport() {
-        return arrival_airport;
-    }
-
-    public void setArrival_airport(Airport arrival_airport) {
-        this.arrival_airport = arrival_airport;
-    }
-
-    public Set<Seat> getSeats() {
-        return seats;
-    }
-
-    public void setSeats(Set<Seat> seats) {
-        this.seats = seats;
-    }
-
-    public Set<Passenger> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(Set<Passenger> passengers) {
-        this.passengers = passengers;
-    }
     public String getFlightId() {
         return flightId;
     }
@@ -157,3 +100,4 @@ public class Flight {
         this.flightType = flightType;
     }
 }
+

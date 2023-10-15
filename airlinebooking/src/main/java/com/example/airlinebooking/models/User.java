@@ -20,7 +20,7 @@ public class User {
 
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="UserPassenger",
             joinColumns = @JoinColumn(name="passengerID"),
@@ -28,7 +28,7 @@ public class User {
     )
     private Set<Passenger> passengers=new HashSet<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_id", nullable = true)
     private Booking booking;
 

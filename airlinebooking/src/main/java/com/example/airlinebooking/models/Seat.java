@@ -17,7 +17,7 @@ public class Seat {
     private String seatType;
     private BigDecimal price;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="FlightSeat",
             joinColumns = @JoinColumn(name="seatID"),
@@ -25,7 +25,7 @@ public class Seat {
     )
     private Set<Flight> flights= new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="PassengerSeat",
             joinColumns = @JoinColumn(name="seatID"),

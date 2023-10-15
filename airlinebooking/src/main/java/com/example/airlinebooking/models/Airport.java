@@ -18,11 +18,11 @@ public class Airport {
     private String country;
 
 
-    @OneToMany(mappedBy = "arrival_airport")
+    @OneToMany(mappedBy = "arrival_airport",fetch = FetchType.LAZY)
     private Set<Flight> arrival_flights= new HashSet<>();
 
 
-    @OneToMany(mappedBy = "departure_airport")
+    @OneToMany(mappedBy = "departure_airport",fetch = FetchType.LAZY)
     private Set<Flight> departure_flights= new HashSet<>();
 
     public String getAirportId() {

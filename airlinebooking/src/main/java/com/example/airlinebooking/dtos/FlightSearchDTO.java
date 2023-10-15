@@ -5,7 +5,7 @@ public class FlightSearchDTO {
     private String arrivalAirport;
     private String departureDate;
     private String arrivalDate;
-    private int passengers;
+
 
     public String getArrivalDate() {
         return arrivalDate;
@@ -15,13 +15,7 @@ public class FlightSearchDTO {
         this.arrivalDate = arrivalDate;
     }
 
-    public int getPassengers() {
-        return passengers;
-    }
 
-    public void setPassengers(int passengers) {
-        this.passengers = passengers;
-    }
 
 
 

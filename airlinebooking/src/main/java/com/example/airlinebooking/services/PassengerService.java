@@ -121,12 +121,6 @@ public class PassengerService {
         seatRepository.save(seat);
 
         List<Passenger> testPassengers=flightRepository.findPassengersByFlightId(passengerSeatBookingDTO.getFlightId());
-        System.out.println("Test Passenger List:");
-        for (Passenger testPassenger : testPassengers) {
-            System.out.println("Passenger ID: " + testPassenger.getPassengerId());
-            System.out.println("Passenger Name: " + testPassenger.getFirstName() + " " + passenger.getLastName());
-            // Print other passenger information as needed
-            System.out.println("----------------------------");
-        }
+
     }
 }

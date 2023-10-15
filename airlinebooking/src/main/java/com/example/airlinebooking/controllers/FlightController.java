@@ -1,6 +1,8 @@
 package com.example.airlinebooking.controllers;
 
 
+import com.example.airlinebooking.dtos.FlightDTO;
+import com.example.airlinebooking.dtos.FlightResponseDTO;
 import com.example.airlinebooking.dtos.FlightReturnDTO;
 import com.example.airlinebooking.dtos.FlightSearchDTO;
 import com.example.airlinebooking.models.Flight;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,26 +25,56 @@ public class FlightController{
 
 
     @PostMapping("/search")
-    public ResponseEntity< FlightReturnDTO> flightSearch(@RequestBody FlightSearchDTO flightSearchDTO){
+    public  ResponseEntity<FlightResponseDTO> flightSearch(@RequestBody FlightSearchDTO flightSearchDTO){
 
         FlightReturnDTO flightList= flightService.searchFlights(flightSearchDTO);
-       List<Flight> f=flightList.getArrivingFlights();
-        List<Flight> f1=flightList.getDepartingFlights();
-        for (Flight testPassenger : f) {
-            System.out.println("flight ID: " + testPassenger.getFlightId());
-
-            System.out.println("----------------------------");
+        List<Flight>flightsDepart=flightList.getDepartingFlights();
+        List<Flight>flightsArrival=flightList.getArrivingFlights();
+        List<String> myList = new ArrayList<>(Arrays.asList("Apple", "Banana", "Cherry"));
+        FlightResponseDTO flightResponseDTO=new FlightResponseDTO();
+        for (Flight flight : flightsDepart) {
+            System.out.println(flight.getFlightId()); // Assuming Flight has a meaningful `toString()` method
         }
 
-        for (Flight testPassenger : f1) {
-            System.out.println("flight ID: " + testPassenger.getFlightId());
 
-            System.out.println("----------------------------");
+
+        List<FlightDTO> flightDeparttDTOs = new ArrayList<>();
+        for (Flight flight : flightsDepart) {
+            FlightDTO flightDTO = new FlightDTO();
+            flightDTO.setFlightId(flight.getFlightId());
+            flightDTO.setFlightType(flight.getFlightType());
+            flightDTO.setDepartureDate(flight.getDepartureDate());
+            flightDTO.setDepartureTime(flight.getDepartureTime());
+            flightDTO.setArrivalDate(flight.getArrivalDate());
+            flightDTO.setArrivalTime(flight.getArrivalTime());
+            flightDTO.setDuration(flight.getDuration());
+            flightDTO.setAirlineName(flight.getAirlineName());
+            flightDTO.setPrice(flight.getPrice());
+            flightDTO.setStops(flight.getStops());
+            flightDeparttDTOs.add(flightDTO);
         }
-        return ResponseEntity.ok(flightList);
+        List<FlightDTO> flightArrivalDTOs = new ArrayList<>();
+        for (Flight flight : flightsArrival) {
+            FlightDTO flightDTO = new FlightDTO();
+
+            flightDTO.setFlightId(flight.getFlightId());
+            flightDTO.setFlightType(flightDTO.getFlightType());
+            flightDTO.setDepartureDate(flight.getDepartureDate());
+            flightDTO.setDepartureTime(flight.getDepartureTime());
+            flightDTO.setArrivalDate(flight.getArrivalDate());
+            flightDTO.setArrivalTime(flight.getArrivalTime());
+            flightDTO.setDuration(flight.getDuration());
+            flightDTO.setAirlineName(flight.getAirlineName());
+            flightDTO.setPrice(flight.getPrice());
+            flightDTO.setStops(flight.getStops());
+            flightArrivalDTOs.add(flightDTO);
+        }
+        flightResponseDTO.setArrivingFlights(flightArrivalDTOs);
+        flightResponseDTO.setDepartingFlights(flightDeparttDTOs);
+
+        return ResponseEntity.ok(flightResponseDTO);
 
 
-//        System.out.println("Test Passenger List:");
-//
+
     }
 }
