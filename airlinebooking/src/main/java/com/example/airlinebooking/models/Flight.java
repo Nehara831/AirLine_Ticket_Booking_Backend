@@ -1,5 +1,6 @@
 package com.example.airlinebooking.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -33,6 +34,7 @@ public class Flight {
 
     @ManyToMany(mappedBy = "flights")
     private Set<Seat> seats= new HashSet<>();
+
 
     @ManyToOne
     @JoinColumn(name="arrival_airport")

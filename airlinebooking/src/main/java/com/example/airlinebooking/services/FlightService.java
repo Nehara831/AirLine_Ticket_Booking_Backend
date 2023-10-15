@@ -33,6 +33,9 @@ public class FlightService {
 
         String arrivalDate = flightSearchDTO.getArrivalDate();
 
+//        System.out.println(flightSearchDTO.getDepartureAirport());
+//        System.out.println(flightSearchDTO.getArrivalAirport());
+
         flightReturnDTO.setDepartingFlights(flightRepository.findArrivalFlights(
 
                 arrivalAirport,

@@ -1,6 +1,7 @@
 package com.example.airlinebooking.models;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -15,8 +16,11 @@ public class Airport {
     private String airportName;
     private String city;
     private String country;
+
+
     @OneToMany(mappedBy = "arrival_airport")
     private Set<Flight> arrival_flights= new HashSet<>();
+
 
     @OneToMany(mappedBy = "departure_airport")
     private Set<Flight> departure_flights= new HashSet<>();

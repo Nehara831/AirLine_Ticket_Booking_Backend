@@ -21,8 +21,26 @@ public class FlightController{
 
 
     @PostMapping("/search")
-    public ResponseEntity<FlightReturnDTO> flightSearch(@RequestBody FlightSearchDTO flightSearchDTO){
+    public ResponseEntity< FlightReturnDTO> flightSearch(@RequestBody FlightSearchDTO flightSearchDTO){
+
         FlightReturnDTO flightList= flightService.searchFlights(flightSearchDTO);
+       List<Flight> f=flightList.getArrivingFlights();
+        List<Flight> f1=flightList.getDepartingFlights();
+        for (Flight testPassenger : f) {
+            System.out.println("flight ID: " + testPassenger.getFlightId());
+
+            System.out.println("----------------------------");
+        }
+
+        for (Flight testPassenger : f1) {
+            System.out.println("flight ID: " + testPassenger.getFlightId());
+
+            System.out.println("----------------------------");
+        }
         return ResponseEntity.ok(flightList);
+
+
+//        System.out.println("Test Passenger List:");
+//
     }
 }

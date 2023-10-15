@@ -3,6 +3,7 @@ package com.example.airlinebooking.controllers;
 import com.example.airlinebooking.dtos.FlightReturnDTO;
 import com.example.airlinebooking.dtos.FlightSearchDTO;
 import com.example.airlinebooking.dtos.PassengerAddDTO;
+import com.example.airlinebooking.dtos.PassengerSeatBookingDTO;
 import com.example.airlinebooking.models.Passenger;
 import com.example.airlinebooking.services.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,11 @@ public class PassengerController {
 
         Passenger passenger= passengerService.addPassenger(passengerAddDTO);
         return ResponseEntity.ok(passenger);
+    }
+
+    @PostMapping("/seatAssignment")
+    public ResponseEntity<String> passengerSeatAssignment(@RequestBody PassengerSeatBookingDTO passengerSeatBookingDTO){
+        passengerService.seatAssignment(passengerSeatBookingDTO);
+        return ResponseEntity.ok("Received Data from backend");
     }
 }

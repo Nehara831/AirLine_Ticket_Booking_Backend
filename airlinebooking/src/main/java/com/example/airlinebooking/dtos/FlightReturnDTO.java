@@ -21,6 +21,7 @@ public class FlightReturnDTO {
         return arrivingFlights;
     }
 
+
     public void setArrivingFlights(List<Flight> arrivingFlights) {
         this.arrivingFlights = arrivingFlights;
     }

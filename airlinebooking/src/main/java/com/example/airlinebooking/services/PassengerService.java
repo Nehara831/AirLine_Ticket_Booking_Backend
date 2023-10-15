@@ -1,15 +1,19 @@
 package com.example.airlinebooking.services;
 
 import com.example.airlinebooking.dtos.PassengerAddDTO;
+import com.example.airlinebooking.dtos.PassengerSeatBookingDTO;
 import com.example.airlinebooking.models.Flight;
 import com.example.airlinebooking.models.Passenger;
+import com.example.airlinebooking.models.Seat;
 import com.example.airlinebooking.models.User;
 import com.example.airlinebooking.repositories.FlightRepository;
 import com.example.airlinebooking.repositories.PassengerRepository;
+import com.example.airlinebooking.repositories.SeatRepository;
 import com.example.airlinebooking.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,6 +27,9 @@ public class PassengerService {
     @Autowired
     private PassengerRepository passengerRepository;
 
+    @Autowired
+    private SeatRepository seatRepository;
+
 
     public Passenger addPassenger(PassengerAddDTO passengerAddDTO){
         Passenger passenger=new Passenger(passengerAddDTO.getDateOfBirth(),
@@ -34,7 +41,7 @@ public class PassengerService {
                 passengerAddDTO.getAge(),
                 passengerAddDTO.getEmail(),
                 passengerAddDTO.getNoOfPassengers());
-        System.out.println(passengerAddDTO.getFlightId());
+
 
         Optional<Flight> optionalFlight=flightRepository.findById(passengerAddDTO.getFlightId());
         Optional<User> optionalUser=userRepository.findById(passengerAddDTO.getUserId());
@@ -66,5 +73,60 @@ public class PassengerService {
 
 
         return passenger;
+    }
+
+
+    public void seatAssignment(PassengerSeatBookingDTO passengerSeatBookingDTO){
+
+        Optional<Passenger> optionalPassenger=passengerRepository.findById(passengerSeatBookingDTO.getPassengerId());
+
+        Optional<Flight> optionalFlight=flightRepository.findById(passengerSeatBookingDTO.getFlightId());
+        Optional<Seat> optionalSeat=seatRepository.findById(passengerSeatBookingDTO.getSeatId());
+
+
+        Flight flight=new Flight();
+        Passenger passenger=new Passenger();
+        Seat seat=new Seat();
+
+        if (optionalFlight.isPresent()) {
+             flight=optionalFlight.get();
+            System.out.println(flight.getFlightId());
+
+        }
+        if (optionalPassenger.isPresent()) {
+             passenger=optionalPassenger.get();
+            System.out.println(passenger.getPassengerId());
+
+        }
+        if (optionalSeat.isPresent()) {
+             seat =optionalSeat.get();
+            System.out.println(seat.getSeatID());
+
+        }
+        Set<Passenger> flightPassengers=flight.getPassengers();
+        flightPassengers.add(passenger);
+        Set<Seat> flightSeats=flight.getSeats();
+        flightSeats.add(seat);
+        Set<Flight>passengerFlights=passenger.getFlights();
+        passengerFlights.add(flight);
+        Set<Seat>passengerSeats=passenger.getSeats();
+        passengerSeats.add(seat);
+        Set<Passenger>seatPassengers=seat.getPassengers();
+        seatPassengers.add(passenger);
+        Set<Flight>seatFlights=seat.getFlights();
+        seatFlights.add(flight);
+
+        flightRepository.save(flight);
+        passengerRepository.save(passenger);
+        seatRepository.save(seat);
+
+        List<Passenger> testPassengers=flightRepository.findPassengersByFlightId(passengerSeatBookingDTO.getFlightId());
+        System.out.println("Test Passenger List:");
+        for (Passenger testPassenger : testPassengers) {
+            System.out.println("Passenger ID: " + testPassenger.getPassengerId());
+            System.out.println("Passenger Name: " + testPassenger.getFirstName() + " " + passenger.getLastName());
+            // Print other passenger information as needed
+            System.out.println("----------------------------");
+        }
     }
 }
