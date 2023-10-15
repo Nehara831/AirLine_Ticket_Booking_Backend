@@ -44,9 +44,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{userID}/passengers")
-    public List<Passenger> getPassengersForUser(@PathVariable String userID) {
-        return userService.findPassengersByUserID(userID);
+    @GetMapping("/{userId}/passengerIds")
+    public List<String> getPassengersForUser(@PathVariable String userId) {
+
+        return userService.findPassengersByUserID(userId);
     }
 
 

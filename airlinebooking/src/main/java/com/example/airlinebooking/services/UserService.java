@@ -11,8 +11,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Passenger> findPassengersByUserID(String userID) {
+    public List<String> findPassengersByUserID(String userID) {
         // Use the custom query method to find passengers associated with the user
-        return userRepository.findPassengersByUserID(userID);
+        return userRepository.findPassengerIdsByUserID(userID);
     }
 }
