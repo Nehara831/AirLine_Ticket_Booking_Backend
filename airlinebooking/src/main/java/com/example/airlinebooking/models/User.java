@@ -17,7 +17,8 @@ public class User {
     private String username;
     private String password;
 
-
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Flight> flights = new HashSet<>();
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -76,5 +77,13 @@ public class User {
 
     public void setBooking(Booking booking) {
         this.booking = booking;
+    }
+
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
     }
 }

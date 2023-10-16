@@ -1,18 +1,126 @@
 package com.example.airlinebooking.services;
 
+import com.example.airlinebooking.dtos.FlightDTO;
+import com.example.airlinebooking.dtos.PassengerDTO;
+import com.example.airlinebooking.models.Flight;
 import com.example.airlinebooking.models.Passenger;
+import com.example.airlinebooking.models.User;
+import com.example.airlinebooking.repositories.FlightRepository;
 import com.example.airlinebooking.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FlightRepository flightRepository;
+
     public List<String> findPassengersByUserID(String userID) {
         // Use the custom query method to find passengers associated with the user
         return userRepository.findPassengerIdsByUserID(userID);
     }
+
+    public void addUserFlight(String userID, String flightId) {
+        Optional<User> userOptional = userRepository.findById(userID);
+        Optional<Flight> flightOptional = flightRepository.findById(flightId);
+        if (userOptional.isPresent() && flightOptional.isPresent()) {
+            User user = userOptional.get();
+            Flight flight = flightOptional.get();
+            System.out.println(user.getFlights());
+            // Add the flight to the user
+            System.out.println("after");
+            user.getFlights().add(flight);
+            Set<Flight> flightsList = user.getFlights();
+
+// Iterate through the list and print flight details
+            for (Flight flight1 : flightsList) {
+                System.out.println("Flight ID: " + flight1.getFlightId());
+                System.out.println("Airline Name: " + flight1.getAirlineName());
+                flight1.setUser(user);
+                // Print other flight details as needed
+                System.out.println();
+                flightRepository.save(flight1);
+            }
+            userRepository.save(user);
+
+
+
+        }
+    }
+    public List<FlightDTO> findFlightbyUsrId(String userId){
+        Set<Flight> flightsList=userRepository.findFlightsByUserID(userId);
+
+
+
+//        Optional<User> userOptional = userRepository.findById(userId);
+//        Set<Flight> flightsList=new HashSet<>();
+//        if (userOptional.isPresent() ) {
+//            User user = userOptional.get();
+//
+//             flightsList = user.getFlights();
+//            for (Flight flight1 : flightsList) {
+//                System.out.println("Flight ID: " + flight1.getFlightId());
+//                System.out.println("Airline Name: " + flight1.getAirlineName());
+//                // Print other flight details as needed
+//                System.out.println();
+//            }
+//
+//        }
+        List<FlightDTO> flightDeparttDTOs = new ArrayList<>();
+        for (Flight flight : flightsList) {
+            FlightDTO flightDTO = new FlightDTO();
+            flightDTO.setFlightId(flight.getFlightId());
+            flightDTO.setFlightType(flight.getFlightType());
+            flightDTO.setDepartureDate(flight.getDepartureDate());
+            flightDTO.setDepartureTime(flight.getDepartureTime());
+            flightDTO.setArrivalDate(flight.getArrivalDate());
+            flightDTO.setArrivalTime(flight.getArrivalTime());
+            flightDTO.setDuration(flight.getDuration());
+            flightDTO.setAirlineName(flight.getAirlineName());
+            flightDTO.setPrice(flight.getPrice());
+            flightDTO.setStops(flight.getStops());
+            flightDeparttDTOs.add(flightDTO);
+        }
+
+            return flightDeparttDTOs;
+        }
+
+    public List<PassengerDTO> findPassengersbyUsrId(String userId){
+
+        Optional<User> userOptional = userRepository.findById(userId);
+        Set<Passenger> passengers=new HashSet<>();
+
+        if (userOptional.isPresent() ) {
+            User user =userOptional.get();
+            passengers=user.getPassengers();
+
+        }
+        List<PassengerDTO>passengerDTOS=new ArrayList<>();
+
+        for (Passenger passenger:passengers){
+            PassengerDTO passengerDTO=new PassengerDTO(passenger.getPassengerId(),
+                    passenger.getFirstName(),
+                    passenger.getMiddleName(),
+                    passenger.getLastName(),
+                    passenger.getSuffix(),
+                    passenger.getDateOfBirth(),
+                    passenger.getEmail(),
+                    passenger.getContactNumber(),
+                    passenger.getAge(),
+                    passenger.getAddress(),
+                    passenger.getNoOfBags());
+            passengerDTOS.add(passengerDTO);
+        }
+
+
+
+        return passengerDTOS;
+    }
+
+
 }

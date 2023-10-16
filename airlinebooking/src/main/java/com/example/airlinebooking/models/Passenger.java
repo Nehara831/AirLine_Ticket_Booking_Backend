@@ -2,9 +2,6 @@ package com.example.airlinebooking.models;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +19,7 @@ public class Passenger {
     private String firstName;
     private String contactNumber;
 
+    private String address;
 
     private String suffix;
     private String middleName;
@@ -30,11 +28,13 @@ public class Passenger {
     private String email;
     private Integer noOfBags;
 
-    public Passenger(String dateOfBirth, String firstName, String contactNumber,  String suffix, String middleName, String lastName, Integer age, String email, Integer noOfBags) {
+
+    public Passenger( String dateOfBirth, String firstName, String contactNumber, String address, String suffix, String middleName, String lastName, Integer age, String email, Integer noOfBags) {
+
         this.dateOfBirth = dateOfBirth;
         this.firstName = firstName;
         this.contactNumber = contactNumber;
-
+        this.address = address;
         this.suffix = suffix;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -60,6 +60,14 @@ public class Passenger {
 
     public Integer getNoOfBags() {
         return noOfBags;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setNoOfBags(Integer noOfBags) {

@@ -32,15 +32,19 @@ public class PassengerService {
 
 
     public Passenger addPassenger(PassengerAddDTO passengerAddDTO){
-        Passenger passenger=new Passenger(passengerAddDTO.getDateOfBirth(),
+        Passenger passenger=new Passenger(
+                passengerAddDTO.getDateOfBirth(),
                 passengerAddDTO.getFirstName(),
                 passengerAddDTO.getContactNumber1(),
+                passengerAddDTO.getAddress(),
                 passengerAddDTO.getSuffix(),
                 passengerAddDTO.getMiddleName(),
                 passengerAddDTO.getLastName(),
                 passengerAddDTO.getAge(),
                 passengerAddDTO.getEmail(),
                 passengerAddDTO.getNoOfPassengers());
+
+
 
 
         Optional<Flight> optionalFlight=flightRepository.findById(passengerAddDTO.getFlightId());

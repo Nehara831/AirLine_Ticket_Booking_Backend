@@ -30,7 +30,6 @@ public class FlightController{
         FlightReturnDTO flightList= flightService.searchFlights(flightSearchDTO);
         List<Flight>flightsDepart=flightList.getDepartingFlights();
         List<Flight>flightsArrival=flightList.getArrivingFlights();
-        List<String> myList = new ArrayList<>(Arrays.asList("Apple", "Banana", "Cherry"));
         FlightResponseDTO flightResponseDTO=new FlightResponseDTO();
         for (Flight flight : flightsDepart) {
             System.out.println(flight.getFlightId()); // Assuming Flight has a meaningful `toString()` method

@@ -24,6 +24,9 @@ public class Flight {
     private String stops;
     private String flightType;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="PassengerFlight",
@@ -45,6 +48,14 @@ public class Flight {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="departure_airport")
     private Airport departure_airport;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Airport getDeparture_airport() {
         return departure_airport;
