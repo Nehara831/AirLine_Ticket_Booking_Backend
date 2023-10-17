@@ -3,6 +3,7 @@ package com.example.airlinebooking.repositories;
 import com.example.airlinebooking.models.Airport;
 import com.example.airlinebooking.models.Flight;
 import com.example.airlinebooking.models.Passenger;
+import com.example.airlinebooking.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,6 +40,10 @@ public interface FlightRepository extends JpaRepository<Flight, String> {
      // Define a custom query to retrieve passengers for a given flight ID
     @Query("SELECT p FROM Passenger p JOIN p.flights f WHERE f.flightId = :flightId")
     List<Passenger> findPassengersByFlightId(@Param("flightId") String flightId);
+
+
+
+    User findUserByFlightId(String flightId);
 
 
 }

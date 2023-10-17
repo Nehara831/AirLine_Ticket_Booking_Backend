@@ -6,6 +6,8 @@ import com.example.airlinebooking.dtos.FlightResponseDTO;
 import com.example.airlinebooking.dtos.FlightReturnDTO;
 import com.example.airlinebooking.dtos.FlightSearchDTO;
 import com.example.airlinebooking.models.Flight;
+import com.example.airlinebooking.models.User;
+import com.example.airlinebooking.repositories.FlightRepository;
 import com.example.airlinebooking.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,9 @@ import java.util.List;
 public class FlightController{
     @Autowired
     private FlightService flightService;
+
+    @Autowired
+    private FlightRepository flightRepository;
 
 
 
@@ -75,5 +80,10 @@ public class FlightController{
 
 
 
+    }
+
+    @GetMapping("/{flightId}/user")
+    public User getUserbyFlightId(@PathVariable("flightId") String flightId){
+        return flightRepository.findUserByFlightId(flightId);
     }
 }

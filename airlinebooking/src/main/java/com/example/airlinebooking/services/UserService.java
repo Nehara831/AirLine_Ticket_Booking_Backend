@@ -25,6 +25,11 @@ public class UserService {
         return userRepository.findPassengerIdsByUserID(userID);
     }
 
+    public List<String> findPassengersByUserIDAndFlightId(String userID,String flightId) {
+        // Use the custom query method to find passengers associated with the user
+        return userRepository.findPassengerIdsByUserIdAndFlightId(userID,flightId);
+    }
+
     public void addUserFlight(String userID, String flightId) {
         Optional<User> userOptional = userRepository.findById(userID);
         Optional<Flight> flightOptional = flightRepository.findById(flightId);
@@ -39,8 +44,8 @@ public class UserService {
 
 // Iterate through the list and print flight details
             for (Flight flight1 : flightsList) {
-                System.out.println("Flight ID: " + flight1.getFlightId());
-                System.out.println("Airline Name: " + flight1.getAirlineName());
+//                System.out.println("Adding flight Flight ID: " + flight1.getFlightId());
+//                System.out.println("Airline Name: " + flight1.getAirlineName());
                 flight1.setUser(user);
                 // Print other flight details as needed
                 System.out.println();
@@ -48,7 +53,14 @@ public class UserService {
             }
             userRepository.save(user);
 
-
+            for (Flight flight1 : flightsList) {
+           System.out.println("User has Flight ID: " + flight1.getFlightId());
+//                System.out.println("Airline Name: " + flight1.getAirlineName());
+                //flight1.setUser(user);
+                // Print other flight details as needed
+                System.out.println();
+                flightRepository.save(flight1);
+            }
 
         }
     }

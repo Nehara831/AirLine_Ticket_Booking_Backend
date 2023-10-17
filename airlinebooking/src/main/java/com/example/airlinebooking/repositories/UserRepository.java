@@ -29,6 +29,15 @@ public interface UserRepository extends JpaRepository<User,String> {
     @Query("SELECT u.flights FROM User u WHERE u.userID = :userID")
     Set<Flight> findFlightsByUserID(@Param("userID") String userID);
 
+    @Query("SELECT p.passengerId FROM Passenger p " +
+            "JOIN p.users u " +
+            "JOIN p.flights f " +
+            "WHERE u.userID = :userId " +
+            "AND f.flightId = :flightId")
+    List<String> findPassengerIdsByUserIdAndFlightId(
+            @Param("userId") String userId,
+            @Param("flightId") String flightId
+    );
 
 
 

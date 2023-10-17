@@ -67,6 +67,15 @@ public class UserController {
         return userService.findPassengersByUserID(userId);
     }
 
+    @GetMapping("/{userId}/{flightId}/passengerIds")
+    public List<String> getPassengerIdsForUserFlight(@PathVariable String userId,
+                                                     @PathVariable String flightId) {
+        System.out.println(userId);
+        System.out.println(flightId);
+
+        return userService.findPassengersByUserIDAndFlightId(userId,flightId);
+    }
+
     @GetMapping("/{userId}/passengersList")
     public List<PassengerDTO> getPassengersForUser(@PathVariable String userId) {
         System.out.println(userId);
