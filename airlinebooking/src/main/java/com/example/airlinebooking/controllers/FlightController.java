@@ -47,6 +47,7 @@ public class FlightController{
             FlightDTO flightDTO = new FlightDTO();
             flightDTO.setFlightId(flight.getFlightId());
             flightDTO.setFlightType(flight.getFlightType());
+            System.out.println(flight.getFlightType());
             flightDTO.setDepartureDate(flight.getDepartureDate());
             flightDTO.setDepartureTime(flight.getDepartureTime());
             flightDTO.setArrivalDate(flight.getArrivalDate());

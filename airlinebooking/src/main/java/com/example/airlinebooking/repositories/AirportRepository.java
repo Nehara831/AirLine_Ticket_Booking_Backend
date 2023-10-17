@@ -13,5 +13,12 @@ public interface AirportRepository extends JpaRepository<Airport,String> {
 
         @Query("SELECT a FROM Airport a WHERE LOWER(a.airportName) LIKE LOWER(CONCAT('%', :airportName, '%'))")
         Airport findByName(@Param("airportName") String airportName);
+
+        @Query("SELECT a.airportName FROM Airport a")
+        List<String> getAirportNames();
+
+
     }
+
+
 
