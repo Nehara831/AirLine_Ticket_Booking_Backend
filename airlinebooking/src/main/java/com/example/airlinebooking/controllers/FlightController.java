@@ -87,4 +87,10 @@ public class FlightController{
     public User getUserbyFlightId(@PathVariable("flightId") String flightId){
         return flightRepository.findUserByFlightId(flightId);
     }
+
+    @GetMapping("/{flightId}/getSeatIds")
+    public List<String> getSeatsByFlightId(@PathVariable("flightId") String flightId){
+        return flightService.getSeatsByFlightId(flightId);
+
+    }
 }

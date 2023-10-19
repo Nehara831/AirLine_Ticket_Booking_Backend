@@ -15,10 +15,8 @@ public class FlightDTO {
     private String flightType;
 
     public FlightDTO() {
-        // Default constructor
     }
 
-    // Getters and setters for each field
 
     public String getFlightId() {
         return flightId;

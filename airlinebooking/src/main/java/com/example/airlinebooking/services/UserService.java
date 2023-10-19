@@ -29,6 +29,30 @@ public class UserService {
         // Use the custom query method to find passengers associated with the user
         return userRepository.findPassengerIdsByUserIdAndFlightId(userID,flightId);
     }
+    public List<PassengerDTO> findPassengerListsByUserIDAndFlightId(String userID,String flightId) {
+        // Use the custom query method to find passengers associated with the user
+        List<Passenger>passengers= userRepository.findPassengerListByUserIdAndFlightId(userID,flightId);
+        List<PassengerDTO>passengerDTOS=new ArrayList<>();
+
+        for (Passenger passenger:passengers){
+            PassengerDTO passengerDTO=new PassengerDTO(passenger.getPassengerId(),
+                    passenger.getFirstName(),
+                    passenger.getMiddleName(),
+                    passenger.getLastName(),
+                    passenger.getSuffix(),
+                    passenger.getDateOfBirth(),
+                    passenger.getEmail(),
+                    passenger.getContactNumber(),
+                    passenger.getAge(),
+                    passenger.getAddress(),
+                    passenger.getNoOfBags());
+            passengerDTOS.add(passengerDTO);
+        }
+
+
+
+        return passengerDTOS;
+    }
 
     public void addUserFlight(String userID, String flightId) {
         Optional<User> userOptional = userRepository.findById(userID);
@@ -133,7 +157,25 @@ public class UserService {
 
         return passengerDTOS;
     }
+    public void deleteFlightByFlightIdAndUserId(String userId, String flightId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            Set<Flight> flights = user.getFlights();
+            Optional<Flight> flightOptional=flightRepository.findById(flightId);
+            Flight flightUser=flightOptional.get();
+            flightUser.setUser(null); // Remove the user reference from the flight
+            flightRepository.save(flightUser);
 
+            // Find and remove the flight by ID
+            flights.removeIf(flight -> flight.getFlightId().equals(flightId));
+            // Update the user entity to reflect the change
+            userRepository.save(user);
+            Set<Flight> flights2 = user.getFlights();
+            for(Flight fly:flights2){
+                System.out.println(fly.getFlightId());
 
+            }
+        }
 
+    }
 }

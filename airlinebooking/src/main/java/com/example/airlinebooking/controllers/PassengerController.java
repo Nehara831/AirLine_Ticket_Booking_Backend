@@ -36,9 +36,5 @@ public class PassengerController {
         return ResponseEntity.ok("Received Data from backend");
     }
 
-//    @GettMapping("/{userId}/flights")
-//    public ResponseEntity<List<Flight>> passengerSeatAssignment(@RequestBody PassengerSeatBookingDTO passengerSeatBookingDTO){
-//        passengerService.seatAssignment(passengerSeatBookingDTO);
-//        return ResponseEntity.ok("Received Data from backend");
-//    }
+
 }

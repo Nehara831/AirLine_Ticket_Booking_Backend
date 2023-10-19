@@ -1,9 +1,6 @@
 package com.example.airlinebooking.repositories;
 
-import com.example.airlinebooking.models.Airport;
-import com.example.airlinebooking.models.Flight;
-import com.example.airlinebooking.models.Passenger;
-import com.example.airlinebooking.models.User;
+import com.example.airlinebooking.models.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -45,6 +42,7 @@ public interface FlightRepository extends JpaRepository<Flight, String> {
 
     User findUserByFlightId(String flightId);
 
-
+    @Query("SELECT s FROM Seat s JOIN s.flights f WHERE f.flightId = :flightId")
+    List<Seat> findSeatsByFlightId(@Param("flightId") String flightId);
 }
 

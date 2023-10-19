@@ -23,6 +23,8 @@ public interface UserRepository extends JpaRepository<User,String> {
     List<String> findPassengerIdsByUserID(@Param("userID") String userID);
 
 
+
+
 //    @Query("SELECT DISTINCT f FROM User u JOIN u.flights f WHERE u.userID = :userID")
 //    List<Flight> findFlightsByUserID(@Param("userID") String userID);
 
@@ -39,6 +41,14 @@ public interface UserRepository extends JpaRepository<User,String> {
             @Param("flightId") String flightId
     );
 
-
+    @Query("SELECT p FROM Passenger p " +
+            "JOIN p.users u " +
+            "JOIN p.flights f " +
+            "WHERE u.userID = :userId " +
+            "AND f.flightId = :flightId")
+    List<Passenger> findPassengerListByUserIdAndFlightId(
+            @Param("userId") String userId,
+            @Param("flightId") String flightId
+    );
 
 }

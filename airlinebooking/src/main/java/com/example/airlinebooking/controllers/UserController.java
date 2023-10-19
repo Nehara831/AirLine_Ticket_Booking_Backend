@@ -76,11 +76,26 @@ public class UserController {
         return userService.findPassengersByUserIDAndFlightId(userId,flightId);
     }
 
+    @GetMapping("/{userId}/{flightId}/passengerList")
+    public List<PassengerDTO> getPassengerListForUserFlight(@PathVariable String userId,
+                                                     @PathVariable String flightId) {
+//        System.out.println(userId);
+//        System.out.println(flightId);
+
+        return userService.findPassengerListsByUserIDAndFlightId(userId,flightId);
+    }
+
     @GetMapping("/{userId}/passengersList")
     public List<PassengerDTO> getPassengersForUser(@PathVariable String userId) {
         System.out.println(userId);
 
         return userService.findPassengersbyUsrId(userId);
+    }
+
+    @DeleteMapping("/{userId}/flightsDelete/{flightId}")
+    public String deleteFlight(@PathVariable String userId, @PathVariable String flightId) {
+        userService.deleteFlightByFlightIdAndUserId(userId, flightId);
+        return "backend accessed";
     }
 }
 
